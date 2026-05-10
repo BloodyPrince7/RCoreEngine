@@ -46,7 +46,7 @@ public class Mesh
     {
         GL.BindVertexArray(vao);
 
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
     }
 
     public void Delete()

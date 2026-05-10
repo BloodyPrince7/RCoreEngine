@@ -3,28 +3,42 @@ using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL4;
 using Engine.Graphics;
 
+using OpenTK.Mathematics;
 namespace Engine.Core;
 
 public class Game : GameWindow
 {
+    private Transform transform = new Transform();
     private Mesh triangleMesh;
     private Shader shader;
 
     private float[] vertices =
-    {
-         0.0f,  0.5f,
-        -0.5f, -0.5f,
-         0.5f, -0.5f
-    };
+{
+    // Triangle 1
+    -0.5f, -0.5f,
+     0.5f, -0.5f,
+     0.5f,  0.5f,
 
-    private string vertexShaderSource = @"
+    // Triangle 2
+    -0.5f, -0.5f,
+     0.5f,  0.5f,
+    -0.5f,  0.5f
+};
+
+private string vertexShaderSource = @"
 #version 330 core
 
 layout (location = 0) in vec2 aPosition;
 
+uniform mat4 model;
+
 void main()
 {
-    gl_Position = vec4(aPosition, 0.0, 1.0);
+   vec4 pos = model * vec4(aPosition, 0.0, 1.0);
+
+pos.x *= 720.0 / 1280.0;
+
+gl_Position = pos;
 }";
 
     private string fragmentShaderSource = @"
@@ -52,6 +66,8 @@ void main()
         shader = new Shader(vertexShaderSource, fragmentShaderSource);
 
         triangleMesh = new Mesh(vertices);
+        transform.Position.X = 0.3f;
+        transform.Scale = new Vector3(0.5f);
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -61,6 +77,10 @@ void main()
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
         shader.Use();
+        transform.Rotation.Z += 50f * (float)args.Time;
+        Matrix4 model = transform.GetModelMatrix();
+        
+        shader.SetMatrix4("model", model);
 
         triangleMesh.Draw();
 

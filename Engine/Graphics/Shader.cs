@@ -1,5 +1,5 @@
 using OpenTK.Graphics.OpenGL4;
-
+using OpenTK.Mathematics;
 namespace Engine.Graphics;
 
 public class Shader
@@ -42,4 +42,10 @@ public class Shader
     {
         GL.DeleteProgram(Handle);
     }
+    public void SetMatrix4(string name, Matrix4 matrix)
+    {
+        int location = GL.GetUniformLocation(Handle, name);
+
+        GL.UniformMatrix4(location, true, ref matrix);
+    }   
 }
