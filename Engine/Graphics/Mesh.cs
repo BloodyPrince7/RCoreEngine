@@ -33,10 +33,10 @@ public class Mesh
 
         GL.VertexAttribPointer(
             0,
-            2,
+            3,
             VertexAttribPointerType.Float,
             false,
-            2 * sizeof(float),
+            3 * sizeof(float),
             0);
 
         GL.EnableVertexAttribArray(0);
@@ -46,7 +46,7 @@ public class Mesh
     {
         GL.BindVertexArray(vao);
 
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
     }
 
     public void Delete()
