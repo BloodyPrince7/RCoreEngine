@@ -6,12 +6,14 @@ public class Mesh
 {
     private int vao;
     private int vbo;
+    private int vertexCount;
 
     private float[] vertices;
 
     public Mesh(float[] vertices)
     {
         this.vertices = vertices;
+        vertexCount = vertices.Length / 3;
 
         SetupMesh();
     }
@@ -46,7 +48,7 @@ public class Mesh
     {
         GL.BindVertexArray(vao);
 
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, vertexCount);
     }
 
     public void Delete()

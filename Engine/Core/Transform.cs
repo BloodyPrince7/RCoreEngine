@@ -1,8 +1,8 @@
 using OpenTK.Mathematics;
-
+using Engine.ECS;
 namespace Engine.Core;
 
-public class Transform
+public class Transform : Component
 {
     public Vector3 Position = Vector3.Zero;
 
