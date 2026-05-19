@@ -11,7 +11,7 @@ class Program
         var nativeSettings = new NativeWindowSettings()
         {
             ClientSize = new Vector2i(1280, 720),
-            Title = "REngine"
+            Title = "RCoreEngine"
         };
 
         using var game = new Game(gameSettings, nativeSettings);
